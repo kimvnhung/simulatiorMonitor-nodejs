@@ -1,0 +1,218 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('myapp:server');
+var http = require('http');
+var XMLHttpRequest = require('xhr2');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3001');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+ const io = require('socket.io')(server);
+ 
+ io.on('connection', (socket) => {
+    console.log('a user connected');
+    refresh()
+ });
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+
+setInterval(() => {
+  refresh()
+}, 20000);
+
+function refresh() {
+  updateBalance();
+  
+  updateTotalGain();
+  
+  updateTotalLost();
+
+  updateTopPnl();
+
+  updateTopRoe();
+
+  updatePositions();
+
+  updateOrders();
+}
+
+function updateBalance() {
+  //update balance
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:1997/v1/getBalance";
+  xmlhttp.open("GET", url, true);
+  xmlhttp.onreadystatechange = function(response) {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var rs = JSON.parse(xmlhttp.responseText)
+      io.emit('updateBalance',rs.balance)
+    }
+  };
+  xmlhttp.send();
+}
+
+function updateTotalGain() {
+  //update totalGain
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:1997/v1/getTotalGain"
+  xmlhttp.open("GET", url, true);
+  xmlhttp.onreadystatechange = function(response) {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var rs = JSON.parse(xmlhttp.responseText)
+      io.emit('updateTotalGain',rs.totalGain)
+    }
+  };
+  xmlhttp.send();
+}
+
+function updateTotalLost() {
+  //update totalLost
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:1997/v1/getTotalLost"
+  xmlhttp.open("GET", url, true);
+  xmlhttp.onreadystatechange = function(response) {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var rs = JSON.parse(xmlhttp.responseText)
+      io.emit('updateTotalLost',rs.totalLost)
+    }
+  };
+  xmlhttp.send();
+}
+
+function updateTopPnl(){
+  //update topPnl
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:1997/v1/getTopPnl"
+  xmlhttp.open("GET", url, true);
+  xmlhttp.onreadystatechange = function(response) {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var rs = JSON.parse(xmlhttp.responseText)
+      io.emit('updateTopPnl',rs.topPnl )
+    }
+  };
+  xmlhttp.send();
+}
+
+function updateTopRoe() {
+  //update topRoe
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:1997/v1/getTopRoe"
+  xmlhttp.open("GET", url, true);
+  xmlhttp.onreadystatechange = function(response) {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var rs = JSON.parse(xmlhttp.responseText)
+      io.emit('updateTopRoe',rs.topRoe)
+    }
+  };
+  xmlhttp.send();
+}
+
+function updatePositions() {
+  //update positions
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:1997/v1/getPositions"
+  xmlhttp.open("GET", url, true);
+  xmlhttp.onreadystatechange = function(response) {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var rs = JSON.parse(xmlhttp.responseText)
+      io.emit('updatePositions',rs.positions)
+    }
+  };
+  xmlhttp.send();
+
+}
+
+function updateOrders() {
+  //update orders
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://localhost:1997/v1/getOrders"
+  xmlhttp.open("GET", url, true);
+  xmlhttp.onreadystatechange = function(response) {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      var rs = JSON.parse(xmlhttp.responseText)
+      io.emit('updateOrders',rs.orders)
+    }
+  };
+  xmlhttp.send();
+}

@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  h1#balance= totalBalance
+  div.summery
+    div.sumCol
+      h2#totalGain= totalGain
+    div.sumCol
+      h2#totalLost= totalLost
+    div.sumCol
+      h2 Top Pnl : 
+        span.val#topPnl= topPnl
+    div.sumCol
+      h2 Top Roe : 
+        span.val#topRoe= topRoe
+  div 
+    .list
+      ul#posList
+        each item in positions ? positions : [] 
+          div.pos 
+            div.h 
+              div.posSide B
+              div.posSymbol KNCUSDT
+              div.leverage 20x
+            div.l
+              div.tit Size
+              div.valt 100
+              div.tit Pnl/Roe:
+              div.valt 0.32$/32%
+            div.l
+              div.tit Entry/Mark:
+              div.valt ../..
+              div.tit TP/SL:
+              div.valt ../..
+    .list
+      ul#orderList
+        each item in orders ? orders : [] 
+          div.order 
+            div.h 
+              div.orderSymbol item.symbol
+              div.time item.time
+            div.l
+              div.orderType item.type
+              div.tit Amount:
+              div.valt item.amount
+            div.l
+              div.tit Price
+              div.valt item.price
+  script(src="/socket.io/socket.io.js") 
+  script
+      include ../public/javascripts/reload.js
