@@ -146,7 +146,7 @@ function updateTotalGain() {
   //update totalGain
   const url = host+"/v1/getTotalGain";
   const request = https.request(url, (response) => {
-      response.on('end', () => {
+      response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTotalGain',rs.totalGain)
       });
@@ -163,7 +163,7 @@ function updateTotalLost() {
   //update totalLost
   const url = host+"/v1/getTotalLost";
   const request = https.request(url, (response) => {
-      response.on('end', () => {
+      response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTotalLost',rs.totalLost)
       });
@@ -180,7 +180,7 @@ function updateTopPnl(){
   //update topPnl
   const url = host+"/v1/getTopPnl";
   const request = https.request(url, (response) => {
-      response.on('end', () => {
+      response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTopPnl',rs.topPnl )
       });
@@ -197,7 +197,7 @@ function updateTopRoe() {
   //update topRoe
   const url = host+"/v1/getTopRoe";
   const request = https.request(url, (response) => {
-      response.on('end', () => {
+      response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTopRoe',rs.topRoe)
       });
@@ -215,7 +215,7 @@ function updatePositions() {
   //update positions
   const url = host+"/v1/getPositions";
   const request = https.request(url, (response) => {
-      response.on('end', () => {
+      response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updatePositions',rs.positions)
       });
@@ -233,7 +233,7 @@ function updateOrders() {
   //update orders
   const url = host+"/v1/getOrders";
   const request = https.request(url, (response) => {
-      response.on('end', () => {
+      response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateOrders',rs.orders)
       });
