@@ -4,7 +4,13 @@ var router = express.Router();
 
 var initObject = [];
 var host = "https://binanceapi-go.herokuapp.com"
-refresh();
+// refresh();
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  initObject.push({positions : "[]",orders:"[]"})
+  res.render('index',initObject);
+});
 
 function refresh(){
   updateBalance();
@@ -139,10 +145,6 @@ function updateOrders() {
 
 // setInterval(updateView,10000)
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  initObject.push({positions : "[]",orders:"[]"})
-  res.render('index',initObject);
-});
+
 
 module.exports = router;
