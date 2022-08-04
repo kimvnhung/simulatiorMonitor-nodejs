@@ -128,7 +128,7 @@ function updateBalance() {
   console.log("update balance www")
   const url = host+"/v1/getBalance";
   const request = https.request(url, (response) => {
-      response.on('end', () => {
+      response.on('data', (data) => {
           const rs = JSON.parse(data);
           console.log(rs)
           io.emit('updateBalance',rs.balance)
