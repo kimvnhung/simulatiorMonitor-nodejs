@@ -1,6 +1,6 @@
 console.log("from reload");
 
-var socket = io("http://192.168.123.144:3001");
+var socket = io("http://192.168.0.106:3001");
 
 socket.on('updateBalance', function(balance) {
     console.log("update balance")
