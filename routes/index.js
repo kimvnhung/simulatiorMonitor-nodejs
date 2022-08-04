@@ -22,10 +22,12 @@ function refresh(){
   // updatePositions();
 }
 
+var host = "https://binanceapi-go.herokuapp.com"
+
 function updateBalance() {
   //update balance
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://localhost:1997/v1/getBalance";
+  var url = host+"/v1/getBalance";
   xmlhttp.open("GET", url, true);
   xmlhttp.onreadystatechange = function(response) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -39,7 +41,7 @@ function updateBalance() {
 function updateTotalGain() {
   //update totalGain
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://localhost:1997/v1/getTotalGain"
+  var url = host+"/v1/getTotalGain"
   xmlhttp.open("GET", url, true);
   xmlhttp.onreadystatechange = function(response) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -53,7 +55,7 @@ function updateTotalGain() {
 function updateTotalLost() {
   //update totalLost
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://localhost:1997/v1/getTotalLost"
+  var url = host+"/v1/getTotalLost"
   xmlhttp.open("GET", url, true);
   xmlhttp.onreadystatechange = function(response) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -67,7 +69,7 @@ function updateTotalLost() {
 function updateTopPnl(){
   //update topPnl
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://localhost:1997/v1/getTopPnl"
+  var url = host+"/v1/getTopPnl"
   xmlhttp.open("GET", url, true);
   xmlhttp.onreadystatechange = function(response) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -81,7 +83,7 @@ function updateTopPnl(){
 function updateTopRoe() {
   //update topRoe
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://localhost:1997/v1/getTopRoe"
+  var url = host+"/v1/getTopRoe"
   xmlhttp.open("GET", url, true);
   xmlhttp.onreadystatechange = function(response) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -95,7 +97,7 @@ function updateTopRoe() {
 function updatePositions() {
   //update positions
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://localhost:1997/v1/getPositions"
+  var url = host+"/v1/getPositions"
   xmlhttp.open("GET", url, true);
   xmlhttp.onreadystatechange = function(response) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -110,7 +112,7 @@ function updatePositions() {
 function updateOrders() {
   //update orders
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://localhost:1997/v1/getOrders"
+  var url = host+"/v1/getOrders"
   xmlhttp.open("GET", url, true);
   xmlhttp.onreadystatechange = function(response) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

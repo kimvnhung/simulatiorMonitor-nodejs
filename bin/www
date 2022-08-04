@@ -118,7 +118,7 @@ function refresh() {
   updateOrders();
 }
 
-var host = "https://binanceapi-go.herokuapp.com/"
+var host = "https://binanceapi-go.herokuapp.com"
 
 function updateBalance() {
   //update balance
