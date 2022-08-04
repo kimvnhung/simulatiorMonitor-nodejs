@@ -130,6 +130,7 @@ function updateBalance() {
   const request = https.request(url, (response) => {
       response.on('end', () => {
           const rs = JSON.parse(data);
+          console.log(rs)
           io.emit('updateBalance',rs.balance)
       });
   })
