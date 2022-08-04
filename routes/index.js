@@ -1,16 +1,10 @@
 var express = require('express');
-var XMLHttpRequest = require('xhr2');
+const https = require('https');
 var router = express.Router();
 
 var initObject = [];
-
+var host = "https://binanceapi-go.herokuapp.com"
 refresh();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  refresh()
-  res.render('index',initObject);
-});
 
 function refresh(){
   updateBalance();
@@ -22,79 +16,133 @@ function refresh(){
   updatePositions();
 }
 
-var host = "http://binanceapi-go.herokuapp.com"
-
 function updateBalance() {
-  //update balance
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getBalance";
-  xmlhttp.open("GET", url, false);
-  xmlhttp.send();
-  var rs = JSON.parse(xmlhttp.responseText)
-  initObject.push({totalBalance : rs.balance})
+  const url = host+"/v1/getBalance";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          initObject.push({totalBalance:rs.balance});
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end() 
 }
 
 function updateTotalGain() {
   //update totalGain
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTotalGain"
-  xmlhttp.open("GET", url, false);
-  xmlhttp.send();
-  var rs = JSON.parse(xmlhttp.responseText)
-  initObject.push({totalGain : rs.totalGain})
+  const url = host+"/v1/getTotalGain";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          initObject.push({totalGain : rs.totalGain})
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
 }
 
 function updateTotalLost() {
   //update totalLost
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTotalLost"
-  xmlhttp.open("GET", url, false);
-  xmlhttp.send();
-  var rs = JSON.parse(xmlhttp.responseText)
-  initObject.push({totalLost : rs.totalLost})
+  const url = host+"/v1/getTotalLost";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          initObject.push({totalLost : rs.totalLost})
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
 }
 
 function updateTopPnl(){
   //update topPnl
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTopPnl"
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
-  var rs = JSON.parse(xmlhttp.responseText)
-  initObject.push({topPnl : rs.topPnl})
+  const url = host+"/v1/getTopPnl";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          initObject.push({topPnl : rs.topPnl})
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
 }
 
 function updateTopRoe() {
   //update topRoe
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTopRoe"
-  xmlhttp.open("GET", url, false);
-  xmlhttp.send();
-  var rs = JSON.parse(xmlhttp.responseText)
-  initObject.push({topRoe : rs.topRoe})
+  const url = host+"/v1/getTopRoe";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          initObject.push({topRoe : rs.topRoe})
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
+  
 }
 
 function updatePositions() {
   //update positions
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getPositions"
-  xmlhttp.open("GET", url, false);
-  xmlhttp.send();
-  var rs = JSON.parse(xmlhttp.responseText)
-  initObject.push({positions : rs.positions})
+  const url = host+"/v1/getPositions";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          initObject.push({positions : rs.positions})
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
+  
 }
 
 function updateOrders() {
   //update orders
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getOrders"
-  xmlhttp.open("GET", url, false);
-  xmlhttp.send();
-
-  var rs = JSON.parse(xmlhttp.responseText)
-  initObject.push({orders : rs.orders})
+  const url = host+"/v1/getOrders";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          initObject.push({orders : rs.orders})
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
+  
 }
 
 // setInterval(updateView,10000)
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  initObject.push({positions : "[]",orders:"[]"})
+  res.render('index',initObject);
+});
 
 module.exports = router;

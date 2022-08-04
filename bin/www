@@ -28,6 +28,8 @@ var server = http.createServer(app);
 
  const io = require('socket.io')(server);
  
+ var host = "https://binanceapi-go.herokuapp.com"
+
  io.on('connection', (socket) => {
     console.log('a user connected');
     refresh()
@@ -98,6 +100,7 @@ function onListening() {
 }
 
 
+
 setInterval(() => {
   refresh()
 }, 20000);
@@ -118,103 +121,125 @@ function refresh() {
   updateOrders();
 }
 
-var host = "http://binanceapi-go.herokuapp.com"
+
 
 function updateBalance() {
-  //update balance
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getBalance";
-  xmlhttp.open("GET", url, true);
-  xmlhttp.onreadystatechange = function(response) {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var rs = JSON.parse(xmlhttp.responseText)
-      io.emit('updateBalance',rs.balance)
-    }
-  };
-  xmlhttp.send();
+  const url = host+"/v1/getBalance";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          io.emit('updateBalance',rs.balance)
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end() 
 }
 
 function updateTotalGain() {
   //update totalGain
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTotalGain"
-  xmlhttp.open("GET", url, true);
-  xmlhttp.onreadystatechange = function(response) {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var rs = JSON.parse(xmlhttp.responseText)
-      io.emit('updateTotalGain',rs.totalGain)
-    }
-  };
-  xmlhttp.send();
+  const url = host+"/v1/getTotalGain";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          io.emit('updateTotalGain',rs.totalGain)
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
 }
 
 function updateTotalLost() {
   //update totalLost
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTotalLost"
-  xmlhttp.open("GET", url, true);
-  xmlhttp.onreadystatechange = function(response) {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var rs = JSON.parse(xmlhttp.responseText)
-      io.emit('updateTotalLost',rs.totalLost)
-    }
-  };
-  xmlhttp.send();
+  const url = host+"/v1/getTotalLost";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          io.emit('updateTotalLost',rs.totalLost)
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
 }
 
 function updateTopPnl(){
   //update topPnl
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTopPnl"
-  xmlhttp.open("GET", url, true);
-  xmlhttp.onreadystatechange = function(response) {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var rs = JSON.parse(xmlhttp.responseText)
-      io.emit('updateTopPnl',rs.topPnl )
-    }
-  };
-  xmlhttp.send();
+  const url = host+"/v1/getTopPnl";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          io.emit('updateTopPnl',rs.topPnl )
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
 }
 
 function updateTopRoe() {
   //update topRoe
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getTopRoe"
-  xmlhttp.open("GET", url, true);
-  xmlhttp.onreadystatechange = function(response) {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var rs = JSON.parse(xmlhttp.responseText)
-      io.emit('updateTopRoe',rs.topRoe)
-    }
-  };
-  xmlhttp.send();
+  const url = host+"/v1/getTopRoe";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          io.emit('updateTopRoe',rs.topRoe)
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
+  
 }
 
 function updatePositions() {
   //update positions
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getPositions"
-  xmlhttp.open("GET", url, true);
-  xmlhttp.onreadystatechange = function(response) {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var rs = JSON.parse(xmlhttp.responseText)
-      io.emit('updatePositions',rs.positions)
-    }
-  };
-  xmlhttp.send();
-
+  const url = host+"/v1/getPositions";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          io.emit('updatePositions',rs.positions)
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
+  
 }
 
 function updateOrders() {
   //update orders
-  var xmlhttp = new XMLHttpRequest();
-  var url = host+"/v1/getOrders"
-  xmlhttp.open("GET", url, true);
-  xmlhttp.onreadystatechange = function(response) {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      var rs = JSON.parse(xmlhttp.responseText)
-      io.emit('updateOrders',rs.orders)
-    }
-  };
-  xmlhttp.send();
+  const url = host+"/v1/getOrders";
+  const request = https.request(url, (response) => {
+      response.on('end', () => {
+          const rs = JSON.parse(data);
+          io.emit('updateOrders',rs.orders)
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end()
+  
 }
