@@ -49,6 +49,14 @@ h1 {
   width: 50%;
 }
 
+#orderCount {
+  text-align: center;
+}
+
+#totalFee {
+  text-align: center;
+}
+
 .list {
   float: left;
   width: 50%;
