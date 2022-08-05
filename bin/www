@@ -109,6 +109,8 @@ setInterval(() => {
 function refresh() {
   updateBalance();
   
+  updateAccount();
+
   updateTotalGain();
   
   updateTotalLost();
@@ -120,6 +122,8 @@ function refresh() {
   updatePositions();
 
   updateOrders();
+
+
 }
 
 
@@ -132,6 +136,24 @@ function updateBalance() {
           const rs = JSON.parse(data);
           console.log(rs)
           io.emit('updateBalance',rs.balance)
+      });
+  })
+    
+  request.on('error', (error) => {
+      console.log('An error', error);
+  });
+    
+  request.end() 
+}
+
+function updateAccount() {
+  console.log("update account")
+  const url = host+"/v1/getAccountInfo";
+  const request = https.request(url, (response) => {
+      response.on('data', (data) => {
+          const rs = JSON.parse(data);
+          console.log(rs)
+          io.emit('updateAccount',rs)
       });
   })
     

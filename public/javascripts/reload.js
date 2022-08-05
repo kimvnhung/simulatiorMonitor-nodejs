@@ -13,6 +13,21 @@ socket.on('updateBalance', function(balance) {
     element.style.color = '#000000'
 });
 
+socket.on('updateAccount', function(account) {
+    console.log("update account")
+    var orderCount = document.getElementById("orderCount")
+    orderCount.innerText = account.orderCount;
+    orderCount.style.color = '#000000'
+
+    var totalFee = document.getElementById("totalFee")
+    if (isNumber(account.totalFee)){
+        totalFee.innerText = account.totalFee.toFixed(2) + "$";
+    }else {
+        totalFee.innerText = account.totalFee + "$";
+    }
+    totalFee.style.color = '#FF0000'
+});
+
 socket.on('updateTotalGain', function(totalGain){
     console.log("update totalGain")
     var element = document.getElementById("totalGain")
