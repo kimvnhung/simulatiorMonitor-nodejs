@@ -1,6 +1,6 @@
 console.log("from reload");
 
-var socket = io("https://simulator-monitor.herokuapp.com/");
+var socket = io("http://192.168.0.106:3001");
 
 socket.on('updateBalance', function(balance) {
     console.log("update balance")
@@ -108,8 +108,8 @@ function createPositionElement(pos) {
     //h
     var posSide = document.createElement('div');
     posSide.className = 'posSide';
-    posSide.innerText = pos.side=="BUY"?"B":"S"
-    if (pos.side == "BUY"){
+    posSide.innerText = pos.quantity>0?"B":"S"
+    if (pos.quantity > 0){
         posSide.style.color = '#00FF00';
     }else {
         posSide.style.color = '#FF0000';
@@ -202,6 +202,10 @@ function createPositionElement(pos) {
 
 function createOrderElement(order) {
     //h
+    var orderSide = document.createElement('div')
+    orderSide.className = 'orderSide'
+    orderSide.innerText = order.side
+
     var orderSymbol = document.createElement('div')
     orderSymbol.className = 'orderSymbol'
     orderSymbol.innerText = order.symbol
