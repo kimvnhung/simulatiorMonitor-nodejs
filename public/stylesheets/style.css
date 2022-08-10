@@ -88,9 +88,14 @@ h1 {
   text-align: center;
 }
 
+.orderSide {
+  float: left;
+  width: 10%;
+}
+
 .orderSymbol {
   float: left;
-  width: 50%;
+  width: 35%;
 }
 
 .orderType {
