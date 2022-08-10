@@ -112,7 +112,7 @@ function updateTopRoe() {
 function updatePositions() {
   //update positions
   const url = host+"/v1/getPositions";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('end', () => {
           const rs = JSON.parse(data);
           initObject.push({positions : rs.positions})
@@ -130,7 +130,7 @@ function updatePositions() {
 function updateOrders() {
   //update orders
   const url = host+"/v1/getOrders";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('end', () => {
           const rs = JSON.parse(data);
           initObject.push({orders : rs.orders})
