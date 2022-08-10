@@ -1,6 +1,7 @@
 console.log("from reload");
 
-var socket = io("http://192.168.0.106:3001");
+// var socket = io("http://192.168.0.106:3001");
+var socket = io("https://simulator-monitor.herokuapp.com/");
 
 socket.on('updateBalance', function(balance) {
     console.log("update balance")

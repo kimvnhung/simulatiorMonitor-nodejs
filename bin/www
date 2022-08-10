@@ -29,8 +29,8 @@ var server = http.createServer(app);
 
  const io = require('socket.io')(server);
  
-//  var host = "https://binanceapi-go.herokuapp.com"
-var host = "http://192.168.0.106:1997"
+ var host = "https://binanceapi-go.herokuapp.com"
+// var host = "http://192.168.0.106:1997"
 
  io.on('connection', (socket) => {
     console.log('a user connected');
@@ -132,7 +132,7 @@ function refresh() {
 function updateBalance() {
   console.log("update balance www")
   const url = host+"/v1/getBalance";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           console.log(rs)
@@ -150,7 +150,7 @@ function updateBalance() {
 function updateAccount() {
   console.log("update account")
   const url = host+"/v1/getAccountInfo";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           console.log(rs)
@@ -168,7 +168,7 @@ function updateAccount() {
 function updateTotalGain() {
   //update totalGain
   const url = host+"/v1/getTotalGain";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTotalGain',rs.totalGain)
@@ -185,7 +185,7 @@ function updateTotalGain() {
 function updateTotalLost() {
   //update totalLost
   const url = host+"/v1/getTotalLost";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTotalLost',rs.totalLost)
@@ -202,7 +202,7 @@ function updateTotalLost() {
 function updateTopPnl(){
   //update topPnl
   const url = host+"/v1/getTopPnl";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTopPnl',rs.topPnl )
@@ -219,7 +219,7 @@ function updateTopPnl(){
 function updateTopRoe() {
   //update topRoe
   const url = host+"/v1/getTopRoe";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateTopRoe',rs.topRoe)
@@ -237,7 +237,7 @@ function updateTopRoe() {
 function updatePositions() {
   //update positions
   const url = host+"/v1/getPositions";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updatePositions',rs.positions)
@@ -255,7 +255,7 @@ function updatePositions() {
 function updateOrders() {
   //update orders
   const url = host+"/v1/getOrders";
-  const request = http.request(url, (response) => {
+  const request = https.request(url, (response) => {
       response.on('data', (data) => {
           const rs = JSON.parse(data);
           io.emit('updateOrders',rs.orders)
