@@ -30,7 +30,7 @@ var server = http.createServer(app);
  const io = require('socket.io')(server);
  
 //  var host = "https://binanceapi-go.herokuapp.com"
-var host = "http://192.168.0.106:1997"
+var host = "http://192.168.0.106:2002"
 
  io.on('connection', (socket) => {
     console.log('a user connected');
