@@ -6,7 +6,7 @@ var router = express.Router();
 var initObject = [];
 // var host = "https://binanceapi-go.herokuapp.com"
 // var host = "http://192.168.0.106:1997"
-var host = "http://172.16.79.200:1997"
+var host = process.env.API_URL
 refresh();
 
 /* GET home page. */

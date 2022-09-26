@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  web-app:
+    image: binance-web:latest
+    container_name: binance-web
+    ports:
+      - "3001:3000"
+    environment:
+      - PORT=3000
+      - API_URL=http://server-reward-only:1997
+    
